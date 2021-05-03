@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import './product.dart';
 import '../models/http_exception.dart';
+import './product.dart';
 
 class Products with ChangeNotifier {
   List<Product> _items = [
@@ -74,6 +74,9 @@ class Products with ChangeNotifier {
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      if (extractedData == null) {
+        return;
+      }
       final List<Product> loadedProducts = [];
       extractedData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
@@ -126,13 +129,14 @@ class Products with ChangeNotifier {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
       final url = Uri.https(
-          'ecoshift-4ff48-default-rtdb.firebaseio.com', '/products/$id.json');
-      await http.patch(url, body: json.encode({
-        'title': newProduct.title,
-        'description': newProduct.description,
-        'imageUrl': newProduct.imageUrl,
-        'price': newProduct.price,
-      }));
+          'ecoshift-4ff48-default-rtdb.firebaseio.com', '/products.json');
+      await http.patch(url,
+          body: json.encode({
+            'title': newProduct.title,
+            'description': newProduct.description,
+            'imageUrl': newProduct.imageUrl,
+            'price': newProduct.price
+          }));
       _items[prodIndex] = newProduct;
       notifyListeners();
     } else {
@@ -156,4 +160,3 @@ class Products with ChangeNotifier {
     existingProduct = null;
   }
 }
-
