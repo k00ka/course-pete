@@ -27,7 +27,7 @@ class OrdersScreen extends StatelessWidget {
               // ...
               // Do error handling stuff
               return Center(
-                child: Text('An error occurred!'),
+                child: Text('An error here occurred!'),
               );
             } else {
               return Consumer<Orders>(
