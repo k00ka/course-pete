@@ -26,6 +26,10 @@
 	<string>Can we assess the Camera</string>
 	<key>NSCameraUsageDescription</key>
     <string>Can we assess the Camera</string>
+   	<key>NSLocationWhenInUseUsageDescription</key>
+   	<string>Can we access the device Location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+    <string>Can we access the device Location</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
